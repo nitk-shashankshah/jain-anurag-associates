@@ -26,3 +26,20 @@
 .onDark .title { color: #fff; }
 .onDark .eyebrow { background: rgba(217, 173, 93, 0.16); color: var(--accent-500); }
 .onDark .description { color: var(--text-on-dark-muted); }
+
+/* The rule eyebrow: no badge, a 22px gold dash leading the label (krystal7's eyebrow). */
+.eyebrow.rule {
+  align-items: center;
+  gap: var(--sp-2);
+  padding: 0;
+  border-radius: 0;
+  background: none;
+  letter-spacing: 0.14em;
+}
+.eyebrow.rule::before {
+  content: '';
+  width: 22px;
+  height: 2px;
+  background: var(--accent-600);
+}
+.onDark .eyebrow.rule { background: none; }

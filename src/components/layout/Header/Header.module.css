@@ -13,9 +13,9 @@
   transition: box-shadow var(--transition), background var(--transition);
 }
 
-/* Scrolled, it deepens and lifts rather than changing colour entirely. */
+/* Scrolled, it lifts but keeps its colour: the logo's navy field is baked into the
+   image, so any change of band colour would show the lockup as a rectangle. */
 .scrolled {
-  background: var(--ink-900);
   box-shadow: 0 10px 30px rgba(1, 18, 47, 0.35);
 }
 
@@ -43,8 +43,24 @@
  */
 .logo {
   display: block;
-  height: 52px;
+  /* Height only, so the width follows the file's own 400x119 ratio (about 215px here). */
+  --logo-h: 64px;
+  height: var(--logo-h);
   width: auto;
+  /*
+   * The file has 35px of navy before the lettering starts (of 119px height), so the box
+   * edge is not the visible edge. Offsetting by that margin puts the lettering on the
+   * same line as the hero copy, which is inset by --sp-6 from the container on desktop
+   * (Hero.module.css, .copy) and flush with it below 861px. Same colour as the band, so
+   * the margin can safely run into the gutter.
+   */
+  --logo-ink: calc(var(--logo-h) * 35 / 119);
+  margin-left: calc(var(--sp-6) - var(--logo-ink));
+}
+
+/* Matches the hero's 860px breakpoint, where its copy drops the --sp-6 inset. */
+@media (max-width: 860px) {
+  .logo { margin-left: calc(var(--logo-ink) * -1); }
 }
 
 /*
@@ -54,6 +70,10 @@
 .nav { display: flex; min-width: 0; }
 
 .actions { display: flex; align-items: center; gap: var(--sp-3); flex: none; }
+
+/* Same bright fill as the hero's "Talk to an Expert", so the two CTAs read as one action. */
+.actions .cta { background: var(--accent-bright); }
+.actions .cta:hover { background: var(--accent-bright-hover); }
 
 
 .burger {
@@ -87,9 +107,9 @@
 @media (max-width: 560px) {
   .cta { display: none; }
   .inner { gap: var(--sp-3); }
-  .logo { height: 44px; }
+  .logo { --logo-h: 52px; }
 }
 
 @media (max-width: 380px) {
-  .logo { height: 38px; }
+  .logo { --logo-h: 44px; }
 }

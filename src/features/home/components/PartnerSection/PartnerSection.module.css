@@ -1,110 +1,68 @@
-/* Artwork left, argument right, on one raised card. */
-.card {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--sp-6) var(--sp-8);
-  align-items: center;
-  padding: var(--sp-8);
-  margin-bottom: var(--sp-8);
-  background: var(--paper);
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-sm);
-}
-
-/*
- * The artwork used to carry its own baked-in white canvas, which needed a matching white
- * plate behind it to avoid a seam — and still showed one the moment the card's own
- * background moved off pure white. Background-removed instead (flood-filled from the
- * image border, so the enclosed eye highlight and the pale details within the pattern
- * were left untouched): the elephant now sits directly on the card, no plate needed.
- */
-.media img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.body {
-  font-size: var(--fs-lead);
-  color: var(--text-body);
-  margin-bottom: var(--sp-5);
-}
-
-/* Short, truthful restatements of what is already said in prose, as a row of tags rather
-   than more sentences — texture the "too simple" card needed without a new claim in it. */
-.tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--sp-2);
-}
-.tags li {
-  padding: var(--sp-1) var(--sp-3);
-  border-radius: var(--radius-pill);
-  background: var(--accent-100);
-  color: var(--accent-700);
-  font-size: var(--fs-xs);
-  font-weight: 600;
-}
-
-/* Pillar titles in the client's brown. FeatureCard owns the h3, so it is reached here. */
-.grid h3 { color: var(--text-warm-strong); }
+/* The heading block is wider than the default so the lead runs as one or two lines, as
+   krystal7's does, rather than a narrow column of four. */
+.section header { max-width: 60rem; }
+/* Two even lines rather than a full line and a one-word orphan. */
+.section h2 { text-wrap: balance; }
 
 .grid {
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--sp-5);
 }
 
 @media (min-width: 1100px) {
   .grid { grid-template-columns: repeat(4, 1fr); }
 }
 
-@media (max-width: 900px) {
-  .card { grid-template-columns: 1fr; padding: var(--sp-6); }
-  .media { max-width: 32rem; }
-}
-
-@media (max-width: 480px) {
-  .card { padding: var(--sp-5); }
-}
-
 @media (max-width: 480px) {
   .grid { grid-template-columns: 1fr; }
+  /* Stacked, so a wrapped row never starts on a separator dot. */
+  .tags { flex-direction: column; align-items: center; }
+  .tags li + li::before { display: none; }
 }
 
-/*
- * Two soft glows sit behind the card rather than on it, so the warm band reads as more
- * than a flat fill without competing with the elephant artwork or the copy. Both are
- * brand tokens at low opacity: gold top-right, navy bottom-left, each a radial gradient
- * that fades to nothing by its own edge rather than needing a blur filter.
- */
+/* Pillar titles in the client's brown. FeatureCard owns the h3, so it is reached here. */
+.grid h3 { color: var(--text-warm-strong); }
+
+/* The closing line under the tiles: smaller than the lead, centred, then the tags. */
+.close {
+  max-width: 56rem;
+  margin: var(--sp-7) auto 0;
+  text-align: center;
+}
+
+.body {
+  font-size: var(--fs-body);
+  color: var(--text-muted);
+  margin-bottom: var(--sp-3);
+}
+
+/* The tags as a run of gold labels separated by dots, in place of the old pills. */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--sp-1) var(--sp-3);
+}
+.tags li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--accent-700);
+}
+.tags li + li::before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent-600);
+}
+
 section.section {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
   /* Half the usual space above: the heading is centred and compact, so a full section
      gap above it read as an empty band under the hero. Element + class so it outranks
      the Section rule. */
   padding-top: calc(var(--section-y) / 2);
-  /* The tiles end the section; a full gap under them read as empty space. Kept just
-     clear of the white Services band so the white tiles do not run into it. */
-  padding-bottom: var(--sp-6);
-}
-
-section.section::before,
-section.section::after {
-  content: '';
-  position: absolute;
-  z-index: -1;
-  width: 32rem;
-  height: 32rem;
-  border-radius: 50%;
-}
-section.section::before {
-  top: -12rem;
-  right: -8rem;
-  background: radial-gradient(circle, rgba(200, 155, 60, 0.16) 0%, transparent 70%);
-}
-section.section::after {
-  bottom: -14rem;
-  left: -10rem;
-  background: radial-gradient(circle, rgba(1, 24, 61, 0.07) 0%, transparent 70%);
+  padding-bottom: calc(var(--section-y) / 2);
 }

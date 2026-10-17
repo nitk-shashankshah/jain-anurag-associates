@@ -15,6 +15,8 @@ export interface FeatureItem {
   icon: IconName;
   /** Makes the whole card a link to this route. */
   href?: string;
+  /** Text for the link row on centred cards; names the destination page. */
+  linkLabel?: string;
 }
 
 export interface IndustryItem {

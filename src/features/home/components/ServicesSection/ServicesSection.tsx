@@ -5,7 +5,6 @@ import { SectionTitle } from '../../../../components/common/SectionTitle/Section
 import { ServiceCard } from '../../../../components/ui/ServiceCard/ServiceCard';
 import { useInViewOnce } from '../../../../hooks/useInViewOnce';
 import { SERVICES, SERVICES_INTRO } from '../../../../constants/home-content';
-import skyline from '../../../../assets/images/mumbai-skyline-night.jpg';
 import styles from './ServicesSection.module.css';
 
 /*
@@ -19,8 +18,6 @@ export function ServicesSection() {
   return (
     <Section ref={ref} data-inview={inView} id="services" aria-labelledby="services-title" className={styles.section}>
       {/* Decorative: below the fold, so it loads lazily rather than competing with the hero. */}
-      <img src={skyline} alt="" width={2000} height={1125} loading="lazy" decoding="async" className={styles.backdrop} />
-
       <Container className={styles.inner}>
         <SectionTitle
           id="services-title"

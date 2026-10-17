@@ -161,6 +161,9 @@
   gap: var(--sp-3);
 }
 
+.footer .cta { background: var(--accent-bright); }
+.footer .cta:hover { background: var(--accent-bright-hover); }
+
 .contact {
   display: inline-flex;
   align-items: center;

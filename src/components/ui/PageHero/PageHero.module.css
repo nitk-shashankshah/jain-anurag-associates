@@ -28,6 +28,11 @@
  * The mask is what stops it reading as a rectangle pasted onto the navy: the left edge
  * dissolves into the band instead of ending on a line.
  */
+/*
+ * The artwork (1600x695) is a composed banner: navy across its left 40%, the skyline,
+ * team and growth line on the right. Anchored right, so when the cap bites it is the
+ * artwork's own navy that is trimmed, never the people.
+ */
 .art {
   position: absolute;
   inset-block: 0;
@@ -35,11 +40,12 @@
   z-index: 0;
   height: 100%;
   width: auto;
-  max-width: 48%;
+  max-width: 62%;
   object-fit: cover;
-  object-position: center top;
+  object-position: right center;
   mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.55) 22%, #000 58%);
 }
+
 
 /*
  * Two fades rather than one: horizontal so the copy sits on solid navy, and vertical so
@@ -147,4 +153,17 @@
 
 @media (max-width: 480px) {
   .actions { flex-direction: column; align-items: stretch; }
+}
+
+/*
+ * Between the stacked layout and a wide screen a long lead reaches past the middle, and
+ * at 62% it ran across the bright sky (measured 1.02:1 at 901px). Narrower here, the
+ * photograph starts where the copy ends, and the copy holds to the left 55%, so the two
+ * never meet; the right anchor keeps the people in frame. Last in the file, so it
+ * overrides the base .title and .lead measures rather than losing to them.
+ */
+@media (min-width: 901px) and (max-width: 1280px) {
+  .art { max-width: 40%; }
+  .title { max-width: min(24ch, 55%); }
+  .lead { max-width: min(62ch, 55%); }
 }

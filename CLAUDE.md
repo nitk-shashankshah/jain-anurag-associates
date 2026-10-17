@@ -206,7 +206,7 @@ image under a lighter overlay is exactly where contrast quietly slips.
 `src/assets/images/logo-jainanurag.png` is the supplied lockup, cropped to its content plus
 an even 10px and converted from JPEG so the small type stays crisp. It carries its own navy
 field, which is why **the footer is `--ink-800` exactly** (the header uses `--header-bg`,
-`#01193a`, as specified by the client) — a near-match makes
+`#0b1f3a`, the new lockup's own field, and keeps it when scrolled) — a near-match makes
 the lockup read as a lighter rectangle floating on the band. If a surface behind the logo
 changes colour, it needs a plate or a transparent asset from the client.
 

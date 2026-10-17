@@ -171,7 +171,7 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
         </nav>
 
         <div className={styles.footer}>
-          <Button to="/contact" variant="primary" fullWidth withArrow onClick={onClose}>
+          <Button to="/contact" variant="primary" fullWidth withArrow onClick={onClose} className={styles.cta}>
             Book a Consultation
           </Button>
           <a className={styles.contact} href={SITE.phoneHref}>

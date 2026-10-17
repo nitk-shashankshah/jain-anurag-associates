@@ -10,7 +10,8 @@
    */
   --ink-900: #01122f;   /* deepest navy: hero and dark bands */
   --ink-800: #01183d;   /* the logo navy, and the primary brand colour */
-  --header-bg: #01193a; /* header band, set by the client */
+  --header-bg: #0b1f3a; /* header band, set by the client; matches the logo field exactly */
+  --services-bg: #0b1f3a; /* Services band ("Why Us?"), set by the client; same navy as the header */
   --hero-bg: #021938;   /* homepage hero: sampled from the map artwork's field so it shows seamless */
   --accent-bright: #ffab00;       /* hero highlight and CTA, set by the client; takes navy text */
   --accent-bright-hover: #ffbc33;
@@ -165,7 +166,7 @@
   /* Layout ----------------------------------------------------------------- */
   --container: 1200px;
   --container-narrow: 820px;
-  --header-h: 76px;
+  --header-h: 88px;
 
   --transition: 180ms cubic-bezier(0.4, 0, 0.2, 1);
 }

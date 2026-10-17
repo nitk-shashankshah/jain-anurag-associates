@@ -52,10 +52,10 @@ export const PARTNER_TAGS = ['Boutique advisory firm', 'Cross-border specialism'
 
 /* Each tile opens the page that substantiates it. */
 export const PARTNER_PILLARS: FeatureItem[] = [
-  { icon: 'globe', title: 'Global Perspective', description: 'Advice that considers the wider cross-border picture.', href: '/start-in-india' },
-  { icon: 'map', title: 'Indian Expertise', description: 'A practical understanding of India’s regulatory environment.', href: '/services' },
-  { icon: 'user', title: 'Personalised Approach', description: 'Solutions aligned with your business objectives.', href: '/pricing' },
-  { icon: 'shield', title: 'Proactive Support', description: 'A focus on anticipating obligations and addressing risks.', href: '/services/annual-company-compliance' },
+  { icon: 'globe', title: 'Global Perspective', description: 'Advice that considers the wider cross-border picture.', href: '/start-in-india', linkLabel: 'Start in India' },
+  { icon: 'map', title: 'Indian Expertise', description: 'A practical understanding of India’s regulatory environment.', href: '/services', linkLabel: 'Our services' },
+  { icon: 'user', title: 'Personalised Approach', description: 'Solutions aligned with your business objectives.', href: '/pricing', linkLabel: 'How we engage' },
+  { icon: 'shield', title: 'Proactive Support', description: 'A focus on anticipating obligations and addressing risks.', href: '/services/annual-company-compliance', linkLabel: 'Annual compliance' },
 ];
 
 export const SERVICES_INTRO = {

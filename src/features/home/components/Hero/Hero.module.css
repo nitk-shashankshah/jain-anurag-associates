@@ -21,10 +21,11 @@
 .copy {
   position: relative;
   z-index: 2;
-  /* Measured off the client's design: wide enough for the highlights on one row and the
-     rule beneath the buttons. The headline and lead carry their own narrower measures,
-     which is what keeps the reading copy clear of the map. */
-  max-width: 56rem;
+  /* No cap of its own, so the highlights row can run to the container's right
+     edge. The headline and lead carry their own narrower measures, which is what keeps
+     the reading copy clear of the map. */
+  /* Inset from the container edge so the copy does not sit hard against the left. */
+  padding-left: var(--sp-6);
   padding-right: var(--sp-3);
 }
 
@@ -45,16 +46,24 @@
 .banner {
   position: absolute;
   z-index: 0;
-  --map-w: min(55%, 100% - 38rem, 66rem);
-  right: calc(var(--map-w) * -0.01);
-  width: var(--map-w);
+  --map-w: min(52%, 100% - 42rem, 66rem);
+  /* How far from the left the map may start, which keeps India clear of the headline. */
+  --map-left: 42rem;
+  /* Drawn 1.3x its slot. Where the screen has room it sits whole, 1% off the right edge;
+     where it does not, the left edge holds at --map-left and the excess bleeds off the
+     right, so only the far edge of the world map is lost and India never moves closer. */
+  --map-size: calc(var(--map-w) * 1.3);
+  right: min(calc(var(--map-size) * -0.01), calc(100% - var(--map-left) - var(--map-size)));
+  width: var(--map-size);
   aspect-ratio: 1451 / 736;
+  /* Raised to the top of the hero rather than starting below its padding. */
+  top: var(--sp-4);
 }
 
 /* Below this the map fills whatever the copy leaves, which puts India against the
    headline; a tighter cap keeps a clear gap (about 50px at 1024). */
 @media (max-width: 1350px) {
-  .banner { --map-w: min(55%, 100% - 42rem); }
+  .banner { --map-w: min(55%, 100% - 44rem); --map-left: 44rem; }
 }
 
 .banner img {
@@ -157,8 +166,6 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--sp-3) var(--sp-5);
-  padding-top: var(--sp-5);
-  border-top: 1px solid var(--line-dark);
 }
 .highlights li {
   display: inline-flex;
@@ -167,7 +174,18 @@
   font-size: var(--fs-sm);
   color: var(--text-on-dark-muted);
 }
-.highlights svg { color: var(--accent-500); flex: none; }
+/* A small tinted plate per topic, in the logo gold that reads on navy. */
+.highlightIcon {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(217, 173, 93, 0.3);
+  background: rgba(217, 173, 93, 0.1);
+  color: var(--accent-500);
+}
 
 /*
  * With the banner, the hero is the shape of the artwork, so the whole photograph shows
@@ -198,7 +216,7 @@
   .title { margin-bottom: var(--sp-4); }
   .lead { margin-bottom: var(--sp-5); }
   .actions { margin-bottom: var(--sp-5); }
-  .highlights { max-width: none; padding-top: var(--sp-4); column-gap: var(--sp-4); }
+  .highlights { max-width: none; column-gap: var(--sp-4); }
 }
 
 @media (max-width: 860px) {
@@ -207,7 +225,7 @@
    * not rendered at all (see Hero.tsx) and the copy gets the full width over the flat
    * hero navy. Nothing is ever read over a face.
    */
-  .copy { max-width: none; padding-right: 0; }
+  .copy { max-width: none; padding-inline: 0; }
 
   .highlights { max-width: none; }
 }

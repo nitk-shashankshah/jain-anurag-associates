@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button } from '../../../../components/common/Button/Button';
 import { useMediaQuery } from '../../../../hooks/useMediaQuery';
 import { Container } from '../../../../components/common/Container/Container';
-import { Icon } from '../../../../components/common/Icon/Icon';
+import { Icon, type IconName } from '../../../../components/common/Icon/Icon';
 import { ImageSlider, type Slide } from '../../../../components/ui/ImageSlider/ImageSlider';
 // import heroImage from '../../../../assets/images/hero-mumbai-advisory.jpg';
 // import networkImage from '../../../../assets/images/global-india-network.jpg';
@@ -11,7 +11,12 @@ import indiaMap from '../../../../assets/images/india_connectors.png';
 import { HERO } from '../../../../constants/home-content';
 import styles from './Hero.module.css';
 
-const HIGHLIGHTS = ['Business setup', 'GST & taxation', 'Accounting', 'Ongoing compliance'];
+const HIGHLIGHTS: { label: string; icon: IconName }[] = [
+  { label: 'Business setup', icon: 'building' },
+  { label: 'GST & taxation', icon: 'percent' },
+  { label: 'Accounting', icon: 'ledger' },
+  { label: 'Ongoing compliance', icon: 'shield' },
+];
 
 /* Matches the layout breakpoint in Hero.module.css; below it the hero is copy only. */
 const BANNER_MIN_WIDTH = 861;
@@ -120,9 +125,11 @@ export function Hero() {
 
           <ul className={styles.highlights}>
             {HIGHLIGHTS.map((item) => (
-              <li key={item}>
-                <Icon name="check" size={16} />
-                {item}
+              <li key={item.label}>
+                <span className={styles.highlightIcon}>
+                  <Icon name={item.icon} size={16} />
+                </span>
+                {item.label}
               </li>
             ))}
           </ul>

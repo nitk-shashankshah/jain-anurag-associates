@@ -7,14 +7,18 @@ interface SectionTitleProps {
   description?: ReactNode;
   align?: 'left' | 'center';
   tone?: 'light' | 'dark';
+  /** `pill` is the tinted badge; `rule` is a short gold rule before plain caps. */
+  eyebrowStyle?: 'pill' | 'rule';
   /** Supplied when a section uses aria-labelledby to name itself by this heading. */
   id?: string;
 }
 
-export function SectionTitle({ eyebrow, title, description, align = 'center', tone = 'light', id }: SectionTitleProps) {
+export function SectionTitle({ eyebrow, title, description, align = 'center', tone = 'light', eyebrowStyle = 'pill', id }: SectionTitleProps) {
   return (
     <header className={`${styles.wrap} ${styles[align]} ${tone === 'dark' ? styles.onDark : ''} reveal`}>
-      {eyebrow && <p className={`${styles.eyebrow} ruled-label`}>{eyebrow}</p>}
+      {eyebrow && (
+        <p className={`${styles.eyebrow} ruled-label ${eyebrowStyle === 'rule' ? styles.rule : ''}`}>{eyebrow}</p>
+      )}
       <h2 id={id} className={styles.title}>{title}</h2>
       {description && <p className={styles.description}>{description}</p>}
     </header>
