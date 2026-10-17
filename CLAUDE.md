@@ -173,11 +173,15 @@ with a fixed height a long headline would clip instead. At 1440 that pulls most 
 an identical 317px and narrows the spread across the ten banner pages from 271px to 59px.
 
 It shows **the work, not the city**. A skyline there read as a property developer, which is
-the wrong business entirely; the banner is now a crop of the advisory photograph — laptop,
-financial reports, calculator, ledger — which reads as a practice.
+the wrong business entirely. The artwork is now the client's composed banner
+(`hero-mumbai-advisory.jpg`, 1600x695): navy across its left 40%, then the skyline and the
+team at work. It is anchored right with a `max-width` cap, so the cap trims the artwork's
+own navy, never the people. Between 901 and 1280px the cap drops to 40% and the copy holds
+to the left 55%; without that, long leads ran across the bright sky (measured 1.37:1).
+Re-measured after the swap: every banner text run 5.04:1 or better, 375 to 2560.
 
-**It is anchored by height, not stretched across the band.** The artwork is nearly square
-(768x620) and the band is five times wider than it is tall, so `width: 100%` with
+**It is anchored by height, not stretched across the band.** The previous artwork was nearly
+square (768x620) and the band is five times wider than it is tall, so `width: 100%` with
 `object-fit: cover` cropped it brutally — it cut the tops off the people's heads, and did
 so differently at every viewport width. Sizing by height and letting the width follow shows
 the frame whole at any band size; a `mask-image` dissolves its left edge into the navy so
