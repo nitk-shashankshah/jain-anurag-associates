@@ -3,7 +3,8 @@
   isolation: isolate;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(160deg, var(--ink-900) 0%, var(--ink-800) 48%, var(--ink-700) 100%);
+  /* Flat, and the same navy as the map artwork's field, so the image has no visible edge. */
+  background: var(--hero-bg);
   color: var(--text-on-dark);
   overflow: hidden;
   padding-block: clamp(3rem, 1.75rem + 5.5vw, 5.5rem);
@@ -20,11 +21,10 @@
 .copy {
   position: relative;
   z-index: 2;
-  /* Wide enough to keep the headline to four lines at desktop widths, narrow enough
-     that it never runs over the people in the artwork. */
-  max-width: 38rem;
-  /* Half the standard padding; the max-width above is what keeps the copy off the
-     people in the artwork. */
+  /* Measured off the client's design: wide enough for the highlights on one row and the
+     rule beneath the buttons. The headline and lead carry their own narrower measures,
+     which is what keeps the reading copy clear of the map. */
+  max-width: 56rem;
   padding-right: var(--sp-3);
 }
 
@@ -32,23 +32,33 @@
  * Positioning only. How a slide looks and moves belongs to ImageSlider; the hero just
  * says where the slider sits and how it behaves when the layout stacks.
  */
+/*
+ * The map is sized to the space the headline leaves and capped so it never dominates a
+ * wide screen. It sits almost flush right, bleeding 1% of its width off the edge (the
+ * client's placement), with India far enough from the headline to keep a clear gap. The
+ * box takes the artwork's own shape, so nothing else is cropped. Both properties read
+ * one variable, and resolve their percentages against the same box, so they stay paired.
+ *
+ * The artwork's field is the hero's own navy (--hero-bg), so it needs no blend or mask
+ * to sit without an edge. Replace the artwork and that token must be re-sampled with it.
+ */
 .banner {
   position: absolute;
-  inset: 0;
   z-index: 0;
+  --map-w: min(55%, 100% - 38rem, 66rem);
+  right: calc(var(--map-w) * -0.01);
+  width: var(--map-w);
+  aspect-ratio: 1451 / 736;
 }
 
-/*
- * Each slide is sized by the hero's width, not stretched to its height. The hero is one
- * screen tall, and covering that on a tall screen scaled the image up and cropped it from
- * the left, which slid the skyline under the copy. Sized by width, a wide screen crops the
- * bottom instead (where every banner fades to plain navy anyway) and a tall screen leaves
- * navy below, which the mask blends the image's bottom edge into.
- */
+/* Below this the map fills whatever the copy leaves, which puts India against the
+   headline; a tighter cap keeps a clear gap (about 50px at 1024). */
+@media (max-width: 1350px) {
+  .banner { --map-w: min(55%, 100% - 42rem); }
+}
+
 .banner img {
-  height: auto;
-  bottom: auto;
-  mask-image: linear-gradient(to bottom, black 75%, transparent);
+  object-fit: contain;
 }
 
 .eyebrow {
@@ -98,13 +108,15 @@
   /*
    * Pinned, rather than inherited from the h1/h2 rule in globals. Heading level is a
    * semantic choice and has flip-flopped here; type size should not follow it. This is
-   * the size the banner settled on, and it holds whichever tag the headline uses.
+   * the hero's own size (larger than the inner banners), whichever tag it uses.
    */
-  font-size: var(--fs-banner);
+  font-size: var(--fs-hero);
   color: #fff;
   margin-bottom: var(--sp-5);
   text-wrap: balance;
   display: grid;
+  /* Two lines at the hero size, as in the client's design. */
+  max-width: 42rem;
 }
 
 /* Headlines share one cell and cross-fade with the banner (same 900ms as the slides). */
@@ -119,7 +131,7 @@
   .headline { transition: none; }
 }
 
-.accent { color: var(--accent-500); }
+.accent { color: var(--accent-bright); }
 
 .lead {
   font-size: var(--fs-lead);
@@ -136,13 +148,17 @@
   margin-bottom: var(--sp-7);
 }
 
+/* The hero CTA in the client's brighter amber; other primary buttons keep the brand gold.
+   Two classes, so it outranks the Button module whatever the stylesheet order. */
+.actions .ctaPrimary { background: var(--accent-bright); }
+.actions .ctaPrimary:hover { background: var(--accent-bright-hover); }
+
 .highlights {
   display: flex;
   flex-wrap: wrap;
   gap: var(--sp-3) var(--sp-5);
   padding-top: var(--sp-5);
   border-top: 1px solid var(--line-dark);
-  max-width: 32rem;
 }
 .highlights li {
   display: inline-flex;
@@ -173,7 +189,6 @@
     justify-content: flex-start;
     padding-block: clamp(var(--sp-5), 7svh, 5.5rem);
     /* 54px above the flags pill, as specified by the client. */
-    padding-top: 3.375rem;
   }
 }
 
@@ -189,8 +204,8 @@
 @media (max-width: 860px) {
   /*
    * Below this width there is no room for text beside the photograph, so the banner is
-   * not rendered at all (see Hero.tsx) and the copy gets the full width over the navy
-   * gradient. Nothing is ever read over a face.
+   * not rendered at all (see Hero.tsx) and the copy gets the full width over the flat
+   * hero navy. Nothing is ever read over a face.
    */
   .copy { max-width: none; padding-right: 0; }
 

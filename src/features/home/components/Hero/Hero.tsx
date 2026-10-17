@@ -4,9 +4,10 @@ import { useMediaQuery } from '../../../../hooks/useMediaQuery';
 import { Container } from '../../../../components/common/Container/Container';
 import { Icon } from '../../../../components/common/Icon/Icon';
 import { ImageSlider, type Slide } from '../../../../components/ui/ImageSlider/ImageSlider';
-import heroImage from '../../../../assets/images/hero-mumbai-advisory.jpg';
-import networkImage from '../../../../assets/images/global-india-network.jpg';
-import raceImage from '../../../../assets/images/hero-race-ahead.jpg';
+// import heroImage from '../../../../assets/images/hero-mumbai-advisory.jpg';
+// import networkImage from '../../../../assets/images/global-india-network.jpg';
+// import raceImage from '../../../../assets/images/hero-race-ahead.jpg';
+import indiaMap from '../../../../assets/images/india_connectors.png';
 import { HERO } from '../../../../constants/home-content';
 import styles from './Hero.module.css';
 
@@ -19,7 +20,8 @@ const BANNER_MIN_WIDTH = 861;
 const HEADLINES = {
   main: (
     <>
-      Navigating Cross-Border Business with <span className={styles.accent}>Confidence</span>
+      Navigating Cross-Border Business with{' '}
+      <span className={styles.accent}>Confidence</span>
     </>
   ),
   race: (
@@ -42,9 +44,9 @@ const HEADLINE_KEYS = Object.keys(HEADLINES) as HeadlineKey[];
  * frame, it is the navy on the left that is trimmed rather than the subject.
  */
 const SLIDES: (Slide & { headline: HeadlineKey })[] = [
-  { src: heroImage, alt: '', width: 1600, height: 695, objectPosition: 'right top', headline: 'main' },
-  { src: networkImage, alt: '', width: 1600, height: 695, objectPosition: 'right top', headline: 'main' },
-  { src: raceImage, alt: '', width: 1600, height: 695, objectPosition: 'right top', headline: 'race' },
+  { src: indiaMap, alt: '', width: 1451, height: 736, headline: 'main' },
+  /*{ src: networkImage, alt: '', width: 1600, height: 695, objectPosition: 'right top', headline: 'main' },
+  { src: raceImage, alt: '', width: 1600, height: 695, objectPosition: 'right top', headline: 'race' },*/
 ];
 
 /**
@@ -77,7 +79,7 @@ export function Hero() {
         />
       )}
 
-      <Container className={styles.inner}>
+      <Container width="edge" className={styles.inner}>
         <div className={styles.copy}>
           <p className={`${styles.eyebrow} rise`}>
             {/* Decorative: the label already says cross-border. */}
@@ -110,7 +112,9 @@ export function Hero() {
           <p className={`${styles.lead} rise rise-2`}>{HERO.lead}</p>
 
           <div className={`${styles.actions} rise rise-3`}>
-            <Button to="/contact" variant="primary" withArrow>Talk to an Expert</Button>
+            <Button to="/contact" variant="primary" withArrow className={styles.ctaPrimary}>
+              Talk to an Expert
+            </Button>
             <Button to="/services" variant="secondary">Explore Our Services</Button>
           </div>
 

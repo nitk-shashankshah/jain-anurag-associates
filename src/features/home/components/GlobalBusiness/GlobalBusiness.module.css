@@ -50,7 +50,7 @@ p.eyebrow {
   font-size: var(--fs-lead);
   color: var(--text-on-dark-muted);
   margin-bottom: var(--sp-7);
-  max-width: 38rem;
+  max-width: 42rem;
 }
 
 .actions { display: flex; gap: var(--sp-3); flex-wrap: wrap; }

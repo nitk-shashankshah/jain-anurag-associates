@@ -17,7 +17,7 @@ export function Header() {
 
   return (
     <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
-      <Container className={styles.inner}>
+      <Container width="edge" className={styles.inner}>
         {/*
           * The supplied logo is a navy lockup with the wordmark and "Chartered
           * Accountants" already set, so it replaces the old lettermark-plus-text

@@ -119,8 +119,8 @@ monogram sits around `#d9ad5d`. Navy and gold are the identity; nothing else com
 | `--accent-500` | `#d9ad5d` | The logo gold, **on navy** (8.41:1) |
 | `--accent-100` | `#f7eedd` | Tinted plates behind icons |
 | `--paper-warm` | `#faf8f4` | Warm off-white section tone |
-| `--font-heading` | Plus Jakarta Sans | Headings |
-| `--font-body` | Inter | Body |
+| `--font-heading` | Poppins | Headings (matches krystal7.com) |
+| `--font-body` | Poppins | Body |
 
 **Gold needs two working tones and they are not interchangeable.** The logo gold is
 luminous on navy and all but illegible on white — 2.08:1, a clear failure. Anything that

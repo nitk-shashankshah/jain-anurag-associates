@@ -22,6 +22,12 @@
       calc((100% - var(--container) + 2 * var(--sp-5)) / 4)
     );
   }
+
+  /* Header and hero only: the standard padding, not the widened margin. Two classes and
+     later in the file, so it outranks the rule above. */
+  .container.edge {
+    padding-inline: var(--sp-5);
+  }
 }
 
 @media (max-width: 480px) {

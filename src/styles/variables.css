@@ -11,6 +11,9 @@
   --ink-900: #01122f;   /* deepest navy: hero and dark bands */
   --ink-800: #01183d;   /* the logo navy, and the primary brand colour */
   --header-bg: #01193a; /* header band, set by the client */
+  --hero-bg: #021938;   /* homepage hero: sampled from the map artwork's field so it shows seamless */
+  --accent-bright: #ffab00;       /* hero highlight and CTA, set by the client; takes navy text */
+  --accent-bright-hover: #ffbc33;
   --ink-700: #0d2a55;
   --ink-600: #24416d;
   --ink-500: #4c6389;   /* muted body text on light */
@@ -102,8 +105,8 @@
 
 :root {
   /* Typography ------------------------------------------------------------- */
-  --font-heading: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-body: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-heading: 'Poppins', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-body: 'Poppins', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
 
   /* Fluid type: scales with the viewport so there is no jump between breakpoints */
   /*
@@ -120,6 +123,10 @@
    * is visible the moment you move between pages.
    */
   --fs-banner: clamp(1.6rem, 1.2rem + 1.5vw, 2.25rem);
+  /* The homepage hero alone, set larger than the inner banners. 3.125rem was measured off
+     the client's design: it sets the headline on two lines across the wider copy column.
+     Reaches the cap from about 1100px; phones get 2rem. */
+  --fs-hero: clamp(2rem, 1rem + 3.5vw, 3.125rem);
   --fs-h3: clamp(1.15rem, 1.02rem + 0.5vw, 1.4rem);
   --fs-lead: clamp(1rem, 0.94rem + 0.3vw, 1.18rem);
   --fs-body: 1rem;
