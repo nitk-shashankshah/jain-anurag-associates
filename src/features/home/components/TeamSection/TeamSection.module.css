@@ -1,0 +1,116 @@
+/* Cards hold their width and centre as a group, so two partners do not stretch into two
+   half-page slabs and a third or fourth simply joins the row. */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 22rem));
+  justify-content: center;
+  gap: var(--sp-6);
+}
+
+/* The practice-tile card from PartnerSection, scaled up for a profile. */
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-4);
+  padding: var(--sp-7) var(--sp-6) var(--sp-6);
+  text-align: center;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+}
+.card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(200, 155, 60, 0.6);
+  box-shadow: var(--shadow-lg);
+}
+
+.head { display: grid; gap: var(--sp-1); }
+
+.name {
+  font-size: var(--fs-h3);
+  color: var(--text-strong);
+}
+
+.role {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--accent-700);
+}
+
+.quals {
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}
+
+.pending {
+  justify-self: center;
+  margin-top: var(--sp-2);
+  padding: var(--sp-1) var(--sp-3);
+  border-radius: var(--radius-pill);
+  background: var(--accent-100);
+  color: var(--accent-700);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+}
+
+.bio {
+  font-size: var(--fs-sm);
+  color: var(--text-body);
+}
+
+.facts {
+  display: grid;
+  gap: var(--sp-2);
+  width: 100%;
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--line);
+  text-align: left;
+  font-size: var(--fs-sm);
+}
+.facts div { display: grid; grid-template-columns: 7.5rem 1fr; gap: var(--sp-3); }
+.facts dt { font-weight: 600; color: var(--text-strong); }
+.facts dd { color: var(--text-muted); }
+
+.focus {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--sp-2);
+}
+.focus li {
+  padding: var(--sp-1) var(--sp-3);
+  border-radius: var(--radius-pill);
+  background: var(--accent-100);
+  color: var(--accent-700);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+}
+
+.links {
+  display: flex;
+  gap: var(--sp-4);
+  margin-top: auto;
+}
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--accent-700);
+}
+.link:hover { color: var(--accent-700); text-decoration: underline; }
+
+@media (max-width: 480px) {
+  .grid { grid-template-columns: 1fr; }
+  .facts div { grid-template-columns: 1fr; gap: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card:hover { transform: none; }
+}
+
+section.section { padding-block: calc(var(--section-y) / 2); }

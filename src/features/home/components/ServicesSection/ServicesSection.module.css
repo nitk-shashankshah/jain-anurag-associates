@@ -1,7 +1,7 @@
 /*
- * A flat band in the header navy, set by the client. It is brand navy in both themes,
- * which is why this section needs no dark-mode rules of its own. (It once carried a
- * photograph under a navy veil; both are gone, and the veil alone darkened the band.)
+ * A flat white band, set by the client (it was header navy). --services-bg flips in the
+ * dark theme, and the title and button use the standard light-surface tokens, so this
+ * section needs no dark-mode rules of its own.
  */
 .section {
   isolation: isolate;

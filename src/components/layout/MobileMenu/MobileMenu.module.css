@@ -34,7 +34,8 @@
 
 .logo {
   display: block;
-  height: 44px;
+  /* Close to the header (40px, 36px on phones) and within the file's resolution. */
+  height: 36px;
   width: auto;
   border-radius: var(--radius-sm);
 }

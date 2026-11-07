@@ -46,13 +46,13 @@
 .banner {
   position: absolute;
   z-index: 0;
-  --map-w: min(52%, 100% - 42rem, 66rem);
+  --map-w: min(52%, 100% - 38rem, 66rem);
   /* How far from the left the map may start, which keeps India clear of the headline. */
-  --map-left: 42rem;
-  /* Drawn 1.3x its slot. Where the screen has room it sits whole, 1% off the right edge;
+  --map-left: 38rem; /* was 42rem; moved left by the client */
+  /* Drawn 1.17x its slot. Where the screen has room it sits whole, 1% off the right edge;
      where it does not, the left edge holds at --map-left and the excess bleeds off the
      right, so only the far edge of the world map is lost and India never moves closer. */
-  --map-size: calc(var(--map-w) * 1.3);
+  --map-size: calc(var(--map-w) * 1.17); /* 1.3, less the 10% the client took off the desktop banner */
   right: min(calc(var(--map-size) * -0.01), calc(100% - var(--map-left) - var(--map-size)));
   width: var(--map-size);
   aspect-ratio: 1451 / 736;
@@ -63,11 +63,35 @@
 /* Below this the map fills whatever the copy leaves, which puts India against the
    headline; a tighter cap keeps a clear gap (about 50px at 1024). */
 @media (max-width: 1350px) {
-  .banner { --map-w: min(55%, 100% - 44rem); --map-left: 44rem; }
+  .banner { --map-w: min(55%, 100% - 40rem); --map-left: 40rem; }
 }
 
 .banner img {
   object-fit: contain;
+}
+
+/*
+ * A soft gold glow behind India. The artwork is opaque (its navy field fills the frame),
+ * so anything placed behind it would be hidden; this sits on top instead, with screen
+ * blending, which can only lighten: the navy around India warms as if lit from behind,
+ * while the map's own gold stays crisp. Centred on India (about 22% across, 55% down
+ * the artwork) and faded out well inside the frame, so no edge of it shows.
+ */
+.banner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(
+    /* India's centre is 22% across, so a 21% radius fades out just inside the left edge;
+       wider and the glow lit the frame's edge and showed the image as a rectangle. */
+    ellipse 21% 44% at 22% 52%,
+    rgba(217, 173, 93, 0.32) 0%,
+    rgba(217, 173, 93, 0.14) 55%,
+    transparent 100%
+  );
+  mix-blend-mode: screen;
 }
 
 .eyebrow {
@@ -142,8 +166,9 @@
 
 .accent { color: var(--accent-bright); }
 
+/* Small size rather than --fs-lead: set smaller by the client, so the headline carries the hero. */
 .lead {
-  font-size: var(--fs-lead);
+  font-size: var(--fs-sm);
   color: var(--text-on-dark-muted);
   margin-bottom: var(--sp-7);
   max-width: 32rem;
@@ -195,18 +220,17 @@
  */
 @media (min-width: 861px) {
   .hero {
-    /* Exactly one screen below the header. The slides cover the box anchored right and
-       top (SLIDES in Hero.tsx): on a wide screen the crop comes off the bottom, where each
-       banner fades to plain navy anyway; on a tall one it comes off the navy on the left.
-       min-height rather than height, so copy that needs more room still gets it. */
-    min-height: calc(100svh - var(--header-h));
+    /* Sized to its copy, not to the screen. It used to be min-height: one screen below
+       the header, which left a deep empty band under the team strip; the client asked
+       for it gone. The map is absolute, so it does not hold the hero open: this floor is
+       its height (--map-size x the artwork's 736/1451, plus its top offset), restated in vw
+       because a % in min-height reads the height. Keep it in step with .banner. */
+    min-height: calc(min(52vw, 100vw - 38rem, 66rem) * 1.17 * 736 / 1451 + var(--sp-4));
     /* overflow: hidden makes the box scrollable, which switches off aspect-ratio's
        content-based minimum and clipped the copy at narrow widths. clip does not. */
     overflow: clip;
-    /* Anchored to the top, so the trimmed padding is not handed back by centring. */
     justify-content: flex-start;
-    padding-block: clamp(var(--sp-5), 7svh, 5.5rem);
-    /* 54px above the flags pill, as specified by the client. */
+    padding-block: clamp(var(--sp-5), 7svh, 5.5rem) var(--sp-6);
   }
 }
 
@@ -228,6 +252,30 @@
   .copy { max-width: none; padding-inline: 0; }
 
   .highlights { max-width: none; }
+
+  /* Smaller type than the desktop hero, set by the client: the copy runs full width
+     here, and the desktop sizes made a phone screen all headline. */
+  .kicker { font-size: var(--fs-body); }
+  .eyebrow { font-size: var(--fs-eyebrow); letter-spacing: 0.08em; }
+  .flag { width: 18px; height: 12px; }
+  .title { font-size: clamp(1.6rem, 1.2rem + 2vw, 2.1rem); margin-bottom: var(--sp-4); }
+  /* Phones only ever show the main headline, so the others need not hold their height. */
+  .headline:not(.headlineActive) { display: none; }
+  .lead { font-size: var(--fs-xs); margin-bottom: var(--sp-5); }
+  /* Scoped under .team: the team rules come later in this file and would otherwise win. */
+  .team .teamTitle { font-size: var(--fs-sm); }
+  .team .teamText,
+  .team .teamLink { font-size: var(--fs-xs); }
+}
+
+/* The small map shown in place of the banner on phones (Hero.tsx). Its field is the hero
+   navy, so it needs no frame. */
+.mobileMap {
+  display: block;
+  width: 100%;
+  max-width: 24rem;
+  height: auto;
+  margin-bottom: var(--sp-4);
 }
 
 @media (max-width: 480px) {
@@ -235,4 +283,90 @@
   .highlights { gap: var(--sp-2) var(--sp-4); }
   /* Flags and label stack here; a full capsule on two lines reads as a lozenge. */
   .eyebrow { border-radius: var(--radius-lg); padding-inline: var(--sp-3); }
+}
+
+/*
+ * The team strip under the highlights: overlapping avatars, a line on who the visitor
+ * deals with, and a link down to the profiles. Logo gold on navy (8.41:1) for the link.
+ */
+.team {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  margin-top: var(--sp-6);
+}
+
+.teamAvatars { display: inline-flex; flex: none; }
+/* Each avatar tucks under the one before it, ringed in the hero navy so they read apart. */
+.teamAvatars > * + * { margin-left: calc(var(--sp-3) * -1); }
+.teamAvatars > * { outline: 3px solid var(--hero-bg); }
+
+.teamCopy { display: grid; gap: 2px; min-width: 0; }
+
+.teamTitle {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: #fff;
+}
+
+.teamText {
+  font-size: var(--fs-sm);
+  color: var(--text-on-dark-muted);
+}
+
+.teamLink {
+  justify-self: start;
+  margin-top: var(--sp-1);
+  font-size: var(--fs-sm);
+  color: var(--accent-500);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.teamLink:hover { color: #fff; }
+
+@media (max-width: 480px) {
+  .team { align-items: flex-start; }
+}
+
+/*
+ * The closing row: the team strip left, the highlights pushed to the bottom right under
+ * the map. Aligned on their bottom edges so the icon row sits level with the team link.
+ * The copy column runs the full container width, which is what lets the highlights reach
+ * the right-hand side.
+ */
+.foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--sp-5) var(--sp-7);
+  margin-top: var(--sp-6);
+}
+.foot .team { margin-top: 0; }
+/* margin-left: auto keeps it right even when it wraps onto a line of its own (1024-1280). */
+.foot .highlights { justify-content: flex-end; margin-left: auto; }
+
+/* No right-hand column here: team strip, then the highlights beneath it, both left. */
+@media (max-width: 860px) {
+  .foot { flex-direction: column; align-items: flex-start; }
+  .foot .highlights { justify-content: flex-start; margin-left: 0; }
+}
+
+/*
+ * Desktop banner 10% smaller across the board, set by the client: every type size, the
+ * flags, the buttons and the avatars here; the map in --map-size and the hero's min-height
+ * above (1.3 -> 1.17). Scaled from the same tokens, so a token change still flows through.
+ * Selectors are doubled where the base rule lives in another module or later in this file.
+ */
+@media (min-width: 861px) {
+  .eyebrow { font-size: calc(var(--fs-xs) * 0.9); }
+  .flag { width: 22px; height: 14px; }
+  .kicker { font-size: calc(var(--fs-lead) * 0.9); }
+  .title { font-size: calc(var(--fs-hero) * 0.9); }
+  .lead { font-size: calc(var(--fs-sm) * 0.9); }
+  .actions > a { font-size: calc(var(--fs-sm) * 0.9); padding: 0.56rem 1.125rem; }
+  .team .teamTitle { font-size: 0.9rem; }
+  .team .teamText,
+  .team .teamLink { font-size: calc(var(--fs-sm) * 0.9); }
+  .team .teamAvatars > * { width: 40px; height: 40px; }
 }

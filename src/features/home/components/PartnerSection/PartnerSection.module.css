@@ -3,14 +3,23 @@
 .section header { max-width: 60rem; }
 /* Two even lines rather than a full line and a one-word orphan. */
 .section h2 { text-wrap: balance; }
+/* The intro under the heading at 0.8rem, per the client's design. SectionTitle owns the
+   paragraph, so it is reached here, as the one after the h2 (the eyebrow is a <p> too). */
+.section header h2 + p { font-size: var(--fs-xs); }
 
+/* All four in one row where there is room (client's call), two by two on tablets, and
+   one column on phones. */
 .grid {
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: var(--sp-5);
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--sp-4);
 }
 
-@media (min-width: 1100px) {
+@media (min-width: 1240px) {
   .grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (max-width: 767px) {
+  .grid { grid-template-columns: 1fr; max-width: 34rem; margin-inline: auto; }
 }
 
 @media (max-width: 480px) {
@@ -60,9 +69,9 @@
 }
 
 section.section {
-  /* Half the usual space above: the heading is centred and compact, so a full section
-     gap above it read as an empty band under the hero. Element + class so it outranks
-     the Section rule. */
-  padding-top: calc(var(--section-y) / 2);
+  /* A quarter of the usual space above (the client took it from a half): the heading is
+     centred and compact, so a full section gap above it read as an empty band under the
+     hero. Element + class so it outranks the Section rule. */
+  padding-top: calc(var(--section-y) / 4);
   padding-bottom: calc(var(--section-y) / 2);
 }

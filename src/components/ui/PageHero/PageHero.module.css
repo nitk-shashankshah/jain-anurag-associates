@@ -18,20 +18,13 @@
 }
 
 /*
- * Anchored by height, not stretched across the band.
+ * The artwork (1194x600) is a dotted world map on its own flat navy field (#0c2136).
+ * Anchored right and sized by height, not stretched across the band, so the whole map
+ * shows at any band depth instead of being cropped differently at every width.
  *
- * The artwork is nearly square and the band is five times wider than it is tall, so
- * `width: 100%` with `object-fit: cover` cropped it brutally — it cut the tops off the
- * people's heads, and did so differently at every viewport width. Sizing by height and
- * letting the width follow means the frame is always shown whole, whatever the band does.
- *
- * The mask is what stops it reading as a rectangle pasted onto the navy: the left edge
- * dissolves into the band instead of ending on a line.
- */
-/*
- * The artwork (1600x695) is a composed banner: navy across its left 40%, the skyline,
- * team and growth line on the right. Anchored right, so when the cap bites it is the
- * artwork's own navy that is trimmed, never the people.
+ * `lighten` is what removes the rectangle: the band is as dark as the map's field or
+ * darker in the channels that matter, so the field all but vanishes and only the dots
+ * read. The mask then dissolves the left edge so the map thins out before the copy.
  */
 .art {
   position: absolute;
@@ -42,7 +35,9 @@
   width: auto;
   max-width: 62%;
   object-fit: cover;
-  object-position: right center;
+  object-position: center;
+  opacity: 0.8;
+  mix-blend-mode: lighten;
   mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.55) 22%, #000 58%);
 }
 
@@ -135,8 +130,8 @@
 
 @media (max-width: 900px) {
   /*
-   * The copy runs full width here and sits right across the photograph, so the overlay
-   * has to carry more. The skyline stays — it is the point of the band — just quieter.
+   * The copy runs full width here and sits right across the map, so the overlay has to
+   * carry more. The map stays as texture, just quieter.
    */
   .hero::before {
     background:
@@ -156,10 +151,9 @@
 }
 
 /*
- * Between the stacked layout and a wide screen a long lead reaches past the middle, and
- * at 62% it ran across the bright sky (measured 1.02:1 at 901px). Narrower here, the
- * photograph starts where the copy ends, and the copy holds to the left 55%, so the two
- * never meet; the right anchor keeps the people in frame. Last in the file, so it
+ * Between the stacked layout and a wide screen a long lead reaches past the middle and
+ * would run across the white dots. Narrower here, the map starts where the copy ends,
+ * and the copy holds to the left 55%, so the two never meet. Last in the file, so it
  * overrides the base .title and .lead measures rather than losing to them.
  */
 @media (min-width: 901px) and (max-width: 1280px) {

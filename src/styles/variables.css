@@ -11,8 +11,8 @@
   --ink-900: #01122f;   /* deepest navy: hero and dark bands */
   --ink-800: #01183d;   /* the logo navy, and the primary brand colour */
   --header-bg: #0b1f3a; /* header band, set by the client; matches the logo field exactly */
-  --services-bg: #0b1f3a; /* Services band ("Why Us?"), set by the client; same navy as the header */
-  --hero-bg: #021938;   /* homepage hero: sampled from the map artwork's field so it shows seamless */
+  --services-bg: #ffffff; /* Services band ("Why Us?"): white, set by the client; flips in dark theme */
+  --hero-bg: #011637;   /* homepage hero: sampled from the map artwork's left and top edges so it shows seamless; re-sample if the artwork changes */
   --accent-bright: #ffab00;       /* hero highlight and CTA, set by the client; takes navy text */
   --accent-bright-hover: #ffbc33;
   --ink-700: #0d2a55;
@@ -49,6 +49,7 @@
   --band-dark: var(--ink-900);   /* the `dark` section tone */
   --surface-strong: var(--ink-800); /* small inverted chips, e.g. numbered steps */
   --paper: #f7f6f3;
+  --card-bg: #ffffff;     /* service cards: pure white, set by the client */
   --paper-warm: #f1ece2;  /* warm off-white keeps the page from feeling clinical */
   --paper-tint: #e8edf0;
   --line: #ddd8ce;
@@ -84,7 +85,9 @@
   color-scheme: dark;
 
   --page-bg: #050f1e;
+  --services-bg: #050f1e; /* darker than --paper, so the cards still lift off the band */
   --paper: #0c1a2e;
+  --card-bg: var(--paper);
   --paper-warm: #091626;
   --paper-tint: #102338;
   --band-dark: #0a1930;
@@ -166,7 +169,7 @@
   /* Layout ----------------------------------------------------------------- */
   --container: 1200px;
   --container-narrow: 820px;
-  --header-h: 88px;
+  --header-h: 72px;
 
   --transition: 180ms cubic-bezier(0.4, 0, 0.2, 1);
 }

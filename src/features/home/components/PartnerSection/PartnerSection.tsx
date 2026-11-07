@@ -36,7 +36,7 @@ export function PartnerSection() {
               description={item.description}
               href={item.href}
               linkLabel={item.linkLabel}
-              centered
+              horizontal
             />
           ))}
         </ul>

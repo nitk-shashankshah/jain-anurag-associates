@@ -15,7 +15,7 @@ export function Footer() {
         <div className={styles.grid}>
           <div className={styles.brandCol}>
             {/* The footer is navy, so the lockup sits on its own field with no plate. */}
-            <img className={styles.logo} src={logo} alt={SITE.name} width={298} height={119} />
+            <img className={styles.logo} src={logo} alt={SITE.name} width={400} height={70} />
             <p className={styles.blurb}>{SITE.tagline}</p>
           </div>
 

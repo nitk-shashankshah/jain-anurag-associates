@@ -2,21 +2,31 @@ import { useState } from 'react';
 import { Button } from '../../../../components/common/Button/Button';
 import { useMediaQuery } from '../../../../hooks/useMediaQuery';
 import { Container } from '../../../../components/common/Container/Container';
-import { Icon, type IconName } from '../../../../components/common/Icon/Icon';
+// Restore with the highlights list below (unused imports fail the build).
+// import { Icon, type IconName } from '../../../../components/common/Icon/Icon';
 import { ImageSlider, type Slide } from '../../../../components/ui/ImageSlider/ImageSlider';
 // import heroImage from '../../../../assets/images/hero-mumbai-advisory.jpg';
 // import networkImage from '../../../../assets/images/global-india-network.jpg';
 // import raceImage from '../../../../assets/images/hero-race-ahead.jpg';
+/* Desktop uses the client's source artwork directly, at the client's request. It is a
+   2.1 MB PNG and the LCP element; a JPEG export (india-connectors.jpg) was 169 KB. */
 import indiaMap from '../../../../assets/images/india_connectors.png';
-import { HERO } from '../../../../constants/home-content';
+/* The same artwork for phones, whole: india_connectors.png resized to 900px wide, JPEG,
+   88 KB (not cropped, which cut off the right of the map). Regenerate it if the PNG changes. */
+import indiaMapMobile from '../../../../assets/images/india-connectors-mobile.jpg';
+import { HERO, HERO_TEAM } from '../../../../constants/home-content';
+import { TEAM } from '../../../../constants/team';
+import { TeamAvatar } from '../../../../components/ui/TeamAvatar/TeamAvatar';
 import styles from './Hero.module.css';
 
-const HIGHLIGHTS: { label: string; icon: IconName }[] = [
-  { label: 'Business setup', icon: 'building' },
-  { label: 'GST & taxation', icon: 'percent' },
-  { label: 'Accounting', icon: 'ledger' },
-  { label: 'Ongoing compliance', icon: 'shield' },
-];
+/* Hidden for now along with its markup in the closing row; uncomment all three together
+   (this list, the Icon import above and the <ul> in the JSX) to bring the highlights back. */
+// const HIGHLIGHTS: { label: string; icon: IconName }[] = [
+//   { label: 'Business setup', icon: 'building' },
+//   { label: 'GST & taxation', icon: 'percent' },
+//   { label: 'Accounting', icon: 'ledger' },
+//   { label: 'Ongoing compliance', icon: 'shield' },
+// ];
 
 /* Matches the layout breakpoint in Hero.module.css; below it the hero is copy only. */
 const BANNER_MIN_WIDTH = 861;
@@ -95,6 +105,11 @@ export function Hero() {
             </span>
             {HERO.eyebrow}
           </p>
+          {/* Phones get a small copy of the map in the flow instead of the banner. Rendered
+              only without the banner, so neither width downloads the other's image. */}
+          {!showBanner && (
+            <img src={indiaMapMobile} alt="" width={900} height={457} className={`${styles.mobileMap} rise rise-1`} />
+          )}
           <p className={`${styles.kicker} rise rise-1`}>{HERO.kicker}</p>
 
           {/*
@@ -123,16 +138,37 @@ export function Hero() {
             <Button to="/services" variant="secondary">Explore Our Services</Button>
           </div>
 
-          <ul className={styles.highlights}>
-            {HIGHLIGHTS.map((item) => (
-              <li key={item.label}>
-                <span className={styles.highlightIcon}>
-                  <Icon name={item.icon} size={16} />
-                </span>
-                {item.label}
-              </li>
-            ))}
-          </ul>
+          {/* The closing row: who the visitor deals with on the left, the four service
+              highlights on the right, under the map. Stacks on narrow screens. */}
+          <div className={`${styles.foot} rise rise-3`}>
+            {/* Who the visitor will deal with, linking down to the profiles in TeamSection. */}
+            <div className={styles.team}>
+              <span className={styles.teamAvatars}>
+                {TEAM.slice(0, 3).map((member) => (
+                  <TeamAvatar key={member.id} member={member} />
+                ))}
+              </span>
+              <div className={styles.teamCopy}>
+                <p className={styles.teamTitle}>{HERO_TEAM.title}</p>
+                <p className={styles.teamText}>{HERO_TEAM.text}</p>
+                {/* A plain anchor: same page, so the browser scrolls to it natively. */}
+                <a href="#team" className={styles.teamLink}>
+                  {HERO_TEAM.link} <span aria-hidden="true">→</span>
+                </a>
+              </div>
+            </div>
+
+            {/*<ul className={styles.highlights}>
+              {HIGHLIGHTS.map((item) => (
+                <li key={item.label}>
+                  <span className={styles.highlightIcon}>
+                    <Icon name={item.icon} size={16} />
+                  </span>
+                  {item.label}
+                </li>
+              ))}
+            </ul>*/}
+          </div>
         </div>
       </Container>
     </section>

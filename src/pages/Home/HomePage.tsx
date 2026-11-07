@@ -6,6 +6,7 @@ import { IndustriesSection } from '../../features/home/components/IndustriesSect
 import { HowWeWork } from '../../features/home/components/HowWeWork/HowWeWork';
 import { StatsSection } from '../../features/home/components/StatsSection/StatsSection';
 import { AboutSection } from '../../features/home/components/AboutSection/AboutSection';
+import { TeamSection } from '../../features/home/components/TeamSection/TeamSection';
 import { FaqSection } from '../../features/home/components/FaqSection/FaqSection';
 import { CtaBand } from '../../components/ui/CtaBand/CtaBand';
 import { CLOSING_CTA } from '../../constants/home-content';
@@ -35,6 +36,7 @@ export default function HomePage() {
       <HowWeWork />
       <StatsSection />
       <AboutSection />
+      <TeamSection />
       <FaqSection />
       <CtaBand
         eyebrow={CLOSING_CTA.eyebrow}

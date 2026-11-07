@@ -18,7 +18,8 @@
 
 .logo {
   display: block;
-  height: 64px;
+  /* At or under the file's 70 real pixels up to 175% scaling, as in the header. */
+  height: 40px;
   width: auto;
   margin-bottom: var(--sp-4);
 }

@@ -58,9 +58,17 @@ or reused on inner pages.
 
 Homepage section order and copy come from the client's content sheet (`Web design and
 content.xlsx`), which supersedes the brief's order: Hero → Partner → Services → Industries →
-Global Business (flags) → How We Work → Stats → About → FAQ → CTA. (Industries was moved
-ahead of Global Business, against the sheet, so the bands alternate dark and light.) The sheet also
-lists a Team block with no content yet; add it when the client supplies names and bios.
+Global Business (flags) → How We Work → Stats → About → Team → FAQ → CTA. (Industries was moved
+ahead of Global Business, against the sheet, so the bands alternate dark and light.)
+
+**Team is built but holds placeholders.** `constants/team.ts` carries two `placeholder: true`
+entries ("Partner", "Chartered Accountant", "Profile to follow") until the client supplies
+names, qualifications, bios and headshots; its `TODO(client)` lists exactly what is needed.
+Every other profile field (qualifications, experience, background, memberships, focus
+areas, LinkedIn, email, photo) renders only when filled. The hero's team strip reads the
+same data for its avatars and links to `#team`. It carries **no rating and no client count**:
+the reference design showed "5.0 across client reviews" and "500 businesses served", which
+were declined under the content rules below.
 
 ## Conventions
 
@@ -159,11 +167,10 @@ cannot read those — those are measured separately with glyph-level probes.
 
 ### Inner-page banner
 
-Every page except the homepage opens on `components/ui/PageHero`, which carries a full
-bleed photograph of the South Mumbai skyline at dusk
-(`src/assets/images/mumbai-skyline-dusk.jpg`). It is decorative — empty `alt`, the city is
-already named in the copy — and it is the LCP element on those pages, so it loads eagerly
-at high priority rather than lazily.
+Every page except the homepage opens on `components/ui/PageHero`, which carries a dotted
+world map (`src/assets/images/world-map-dotted.jpg`, 1194x600, 118 KB — exported from the
+client's 781 KB `dotted_map.png`). It is decorative — empty `alt` — and it is the LCP
+element on those pages, so it loads eagerly at high priority rather than lazily.
 
 It is a **page header strip, not a second hero**: full width and deliberately short, with
 a `min-height` floor of `clamp(250px, 22vw, 340px)` and its content vertically centred.
@@ -172,20 +179,16 @@ the strip changed depth from page to page, which reads as sloppy when moving bet
 with a fixed height a long headline would clip instead. At 1440 that pulls most pages onto
 an identical 317px and narrows the spread across the ten banner pages from 271px to 59px.
 
-It shows **the work, not the city**. A skyline there read as a property developer, which is
-the wrong business entirely. The artwork is now the client's composed banner
-(`hero-mumbai-advisory.jpg`, 1600x695): navy across its left 40%, then the skyline and the
-team at work. It is anchored right with a `max-width` cap, so the cap trims the artwork's
-own navy, never the people. Between 901 and 1280px the cap drops to 40% and the copy holds
-to the left 55%; without that, long leads ran across the bright sky (measured 1.37:1).
-Re-measured after the swap: every banner text run 5.04:1 or better, 375 to 2560.
+The map sits on its own flat navy field (`#0c2136`), which does not match the band's
+gradient. `mix-blend-mode: lighten` removes the rectangle: the band is as dark or darker
+in every channel that shows, so the field vanishes and only the dots read. Earlier
+artwork (a skyline, then a team photograph) read as a property developer or stock imagery.
 
-**It is anchored by height, not stretched across the band.** The previous artwork was nearly
-square (768x620) and the band is five times wider than it is tall, so `width: 100%` with
-`object-fit: cover` cropped it brutally — it cut the tops off the people's heads, and did
-so differently at every viewport width. Sizing by height and letting the width follow shows
-the frame whole at any band size; a `mask-image` dissolves its left edge into the navy so
-it does not read as a rectangle pasted on.
+**It is anchored right and sized by height, not stretched across the band**, so the whole
+map shows at any band depth; `width: 100%` with `object-fit: cover` crops differently at
+every viewport width. A `mask-image` thins its left edge out before the copy. Between 901
+and 1280px the cap drops to 40% and the copy holds to the left 55%, so long leads never
+run across the white dots.
 
 The veil is shaped to the text rather than washed across the band. Washing it evenly either
 hides the picture or fails the copy — at 0.5 opacity across the text the lead measured
@@ -213,6 +216,15 @@ field, which is why **the footer is `--ink-800` exactly** (the header uses `--he
 `#0b1f3a`, the new lockup's own field, and keeps it when scrolled) — a near-match makes
 the lockup read as a lighter rectangle floating on the band. If a surface behind the logo
 changes colour, it needs a plate or a transparent asset from the client.
+
+**Size the logo to its pixels.** The current file is 400x70. It is shown 40px tall in the
+header and footer (36 below 560px, 30 below 380px), which keeps it at or under its 70 real
+pixels up to 175% display scaling; any taller and high-DPI laptops stretch it soft. The
+header is 72px to suit. The lettering starts 35px in, which is the `35 / 70` in
+`--logo-ink` that aligns it with the hero copy; re-measure both if the file changes, and
+keep the `<img>` width/height attributes in step. The logo also sets `max-width: none`,
+because the global `img { max-width: 100% }` squeezed it out of proportion once its
+alignment margin went negative.
 
 The hero headline caps at 3.25rem (52px) and inner-page headlines at 2.75rem. They were
 larger; at 62px the hero shouted, and a firm selling judgement reads better set a little

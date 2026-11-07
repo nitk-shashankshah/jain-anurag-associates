@@ -43,18 +43,23 @@
  */
 .logo {
   display: block;
-  /* Height only, so the width follows the file's own 400x119 ratio (about 215px here). */
-  --logo-h: 64px;
+  /* Height only, so the width follows the file's own 400x70 ratio (about 229px here).
+     40px keeps it at or under the file's 70 real pixels up to 175% display scaling, so
+     it is never stretched soft; any taller and high-DPI laptops upscale it. */
+  --logo-h: 40px;
   height: var(--logo-h);
+  /* The global img max-width: 100% would squeeze it when the margin below goes negative,
+     distorting the lockup; it is sized by height alone. */
+  max-width: none;
   width: auto;
   /*
-   * The file has 35px of navy before the lettering starts (of 119px height), so the box
+   * The file has 35px of navy before the lettering starts (of 70px height), so the box
    * edge is not the visible edge. Offsetting by that margin puts the lettering on the
    * same line as the hero copy, which is inset by --sp-6 from the container on desktop
    * (Hero.module.css, .copy) and flush with it below 861px. Same colour as the band, so
    * the margin can safely run into the gutter.
    */
-  --logo-ink: calc(var(--logo-h) * 35 / 119);
+  --logo-ink: calc(var(--logo-h) * 35 / 70);
   margin-left: calc(var(--sp-6) - var(--logo-ink));
 }
 
@@ -72,7 +77,11 @@
 .actions { display: flex; align-items: center; gap: var(--sp-3); flex: none; }
 
 /* Same bright fill as the hero's "Talk to an Expert", so the two CTAs read as one action. */
-.actions .cta { background: var(--accent-bright); }
+.actions .cta {
+  background: var(--accent-bright);
+  /* Header type 10% smaller (client), in step with the nav. */
+  font-size: calc(var(--fs-sm) * 0.9);
+}
 .actions .cta:hover { background: var(--accent-bright-hover); }
 
 
@@ -107,9 +116,9 @@
 @media (max-width: 560px) {
   .cta { display: none; }
   .inner { gap: var(--sp-3); }
-  .logo { --logo-h: 52px; }
+  .logo { --logo-h: 36px; }
 }
 
 @media (max-width: 380px) {
-  .logo { --logo-h: 44px; }
+  .logo { --logo-h: 30px; }
 }

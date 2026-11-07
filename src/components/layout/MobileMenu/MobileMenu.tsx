@@ -71,7 +71,7 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
       >
         <div className={styles.head}>
           {/* The lockup carries its own navy field, so it needs no plate of its own. */}
-          <img className={styles.logo} src={logo} alt={SITE.name} width={298} height={119} />
+          <img className={styles.logo} src={logo} alt={SITE.name} width={400} height={70} />
           <div className={styles.headActions}>
             <ThemeToggle className={styles.themeToggle} />
           <button ref={closeRef} type="button" className={styles.close} onClick={onClose} aria-label="Close menu">

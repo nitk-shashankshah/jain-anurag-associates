@@ -35,7 +35,7 @@
   white-space: nowrap;
   padding: var(--sp-2) var(--sp-3);
   border-radius: var(--radius-sm);
-  font-size: var(--fs-sm);
+  font-size: calc(var(--fs-sm) * 0.9); /* header type 10% smaller (client) */
   font-weight: 500;
   letter-spacing: 0.01em;
   color: #dbe4f0;
@@ -107,7 +107,7 @@
 }
 
 .columnHeading {
-  font-size: var(--fs-xs);
+  font-size: calc(var(--fs-xs) * 0.9); /* header type 10% smaller (client) */
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -126,7 +126,7 @@
   gap: var(--sp-3);
   padding: var(--sp-2);
   border-radius: var(--radius-sm);
-  font-size: var(--fs-sm);
+  font-size: calc(var(--fs-sm) * 0.9); /* header type 10% smaller (client) */
   color: var(--text-body);
   transition: background var(--transition), color var(--transition), transform var(--transition);
 }
@@ -170,7 +170,7 @@
 }
 
 .note {
-  font-size: var(--fs-sm);
+  font-size: calc(var(--fs-sm) * 0.9); /* header type 10% smaller (client) */
   color: var(--text-muted);
 }
 
@@ -178,7 +178,7 @@
   display: inline-flex;
   align-items: center;
   gap: var(--sp-2);
-  font-size: var(--fs-sm);
+  font-size: calc(var(--fs-sm) * 0.9); /* header type 10% smaller (client) */
   font-weight: 600;
   color: var(--accent-700);
   white-space: nowrap;
@@ -201,7 +201,7 @@
 
 .panelLink strong {
   display: block;
-  font-size: var(--fs-body);
+  font-size: calc(var(--fs-body) * 0.9); /* header type 10% smaller (client) */
   font-weight: 600;
   color: var(--text-strong);
 }
@@ -209,7 +209,7 @@
 .panelLink small {
   display: block;
   margin-top: 2px;
-  font-size: var(--fs-sm);
+  font-size: calc(var(--fs-sm) * 0.9); /* header type 10% smaller (client) */
   color: var(--text-muted);
 }
 
@@ -232,7 +232,7 @@
   padding: var(--sp-3) var(--sp-4);
   border-radius: var(--radius-md);
   background: var(--accent-100);
-  font-size: var(--fs-sm);
+  font-size: calc(var(--fs-sm) * 0.9); /* header type 10% smaller (client) */
   font-weight: 600;
   color: var(--accent-700);
   transition: background var(--transition);

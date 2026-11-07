@@ -25,7 +25,7 @@ export function Header() {
           * the header is navy: the logo sits in it with no visible plate around it.
           */}
         <Link to="/" className={styles.brand} aria-label={`${SITE.name}, home`}>
-          <img className={styles.logo} src={logo} alt={SITE.name} width={298} height={119} />
+          <img className={styles.logo} src={logo} alt={SITE.name} width={400} height={70} />
         </Link>
 
         <div className={styles.nav}>

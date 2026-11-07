@@ -24,7 +24,6 @@ export function ServicesSection() {
           eyebrow={SERVICES_INTRO.eyebrow}
           title={SERVICES_INTRO.title}
           description={SERVICES_INTRO.description}
-          tone="dark"
         />
 
         <ul className={`grid ${styles.grid} reveal-group`}>
@@ -32,16 +31,16 @@ export function ServicesSection() {
             <ServiceCard
               key={service.id}
               index={index + 1}
-              icon={service.icon}
               title={service.title}
               description={service.description}
               href={service.href}
+              image={service.image}
             />
           ))}
         </ul>
 
         <div className={styles.foot}>
-          <Button to="/services" variant="onDark" withArrow className={styles.more}>View all services</Button>
+          <Button to="/services" variant="secondary" withArrow className={styles.more}>View all services</Button>
         </div>
       </Container>
     </Section>

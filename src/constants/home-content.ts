@@ -1,4 +1,10 @@
 import type { CountryItem, FaqItem, FeatureItem, IndustryItem, ServiceItem, StatItem } from '../types/content';
+import imgIndiaEntry from '../assets/images/services/abc.png';
+import imgFema from '../assets/images/services/rst.png';
+import imgTransferPricing from '../assets/images/services/efg.png';
+import imgCompanyLaw from '../assets/images/services/ghi.png';
+import imgGst from '../assets/images/services/stu.png';
+import imgDirectTax from '../assets/images/services/pqr.png';
 import flagUs from '../assets/images/flags/us.png';
 import flagGb from '../assets/images/flags/gb.png';
 import flagAe from '../assets/images/flags/ae.png';
@@ -34,6 +40,15 @@ export const HERO = {
   lead: 'Specialist advice. Global perspective. Personalised solutions for international businesses establishing, operating, and growing in India.',
 };
 
+/* The team strip under the hero actions. No rating or client count: none has been
+   supplied (see Content Rules in CLAUDE.md). "Partner-led" restates the client's own
+   "direct partner involvement". */
+export const HERO_TEAM = {
+  title: 'Partner-led advisory from Mumbai',
+  text: 'Chartered Accountants for Indian and international businesses',
+  link: 'Meet the team',
+};
+
 export const PARTNER = {
   eyebrow: 'Your partner in India',
   /* Two lines in the design: the claim, then what it takes. Joined as one heading now
@@ -65,12 +80,12 @@ export const SERVICES_INTRO = {
 };
 
 export const SERVICES: ServiceItem[] = [
-  { id: 'india-entry', icon: 'globe', title: 'India Entry & Business Setup', description: 'Company formation, foreign subsidiaries and market entry support.', href: '/start-in-india' },
-  { id: 'fema', icon: 'bank', title: 'FEMA & RBI Compliance', description: 'Foreign investment reporting and regulatory compliance.', href: '/services/fema-and-rbi-reporting' },
-  { id: 'transfer-pricing', icon: 'percent', title: 'Transfer Pricing & Tax Advisory', description: 'Cross-border transaction compliance and tax support.', href: '/services/transfer-pricing' },
-  { id: 'annual-compliance', icon: 'ledger', title: 'Corporate & Annual Compliance', description: 'Ongoing statutory filings, governance and audit coordination.', href: '/services/annual-company-compliance' },
-  { id: 'cfo', icon: 'chart', title: 'Finance, Reporting & Virtual CFO', description: 'Financial reporting, planning and outsourced finance functions.', href: '/services/cfo-services' },
-  { id: 'resolution', icon: 'shield', title: 'Compliance Resolution & Representation', description: 'Support with notices, regulatory issues and representation before authorities, as applicable.', href: '/services/compliance-rescue' },
+  { id: 'india-entry', image: imgIndiaEntry, title: 'India Entry & Business Setup', description: 'Company formation, foreign subsidiaries and market entry support.', href: '/start-in-india' },
+  { id: 'fema', image: imgFema, title: 'FEMA & RBI Compliance', description: 'Foreign investment reporting and regulatory compliance.', href: '/services/fema-and-rbi-reporting' },
+  { id: 'transfer-pricing', image: imgTransferPricing, title: 'Transfer Pricing & Tax Advisory', description: 'Cross-border transaction compliance and tax support.', href: '/services/transfer-pricing' },
+  { id: 'annual-compliance', image: imgCompanyLaw, title: 'Corporate & Annual Compliance', description: 'Ongoing statutory filings, governance and audit coordination.', href: '/services/annual-company-compliance' },
+  { id: 'cfo', image: imgGst, title: 'Finance, Reporting & Virtual CFO', description: 'Financial reporting, planning and outsourced finance functions.', href: '/services/cfo-services' },
+  { id: 'resolution', image: imgDirectTax, title: 'Compliance Resolution & Representation', description: 'Support with notices, regulatory issues and representation before authorities, as applicable.', href: '/services/compliance-rescue' },
 ];
 
 export const GLOBAL = {

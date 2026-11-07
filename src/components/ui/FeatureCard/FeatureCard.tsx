@@ -15,6 +15,11 @@ interface FeatureCardProps {
    */
   centered?: boolean;
   /**
+   * A large round plate on the left, with title, line and link row stacked beside it,
+   * all left-aligned. Needs `href` and `linkLabel` to show the link.
+   */
+  horizontal?: boolean;
+  /**
    * Makes the whole card a link. The title is the link and its hit area is stretched over
    * the card, so a screen reader hears one link named by the title, not a card of text.
    * On a centred card with a `linkLabel`, the link row carries it instead.
@@ -24,15 +29,21 @@ interface FeatureCardProps {
 }
 
 /** Used for trust indicators and differentiators: icon, heading, one line of substance. */
-export function FeatureCard({ icon, title, description, tone = 'light', stacked = false, centered = false, href, linkLabel }: FeatureCardProps) {
-  const linkRow = Boolean(href && centered && linkLabel);
+export function FeatureCard({ icon, title, description, tone = 'light', stacked = false, centered = false, horizontal = false, href, linkLabel }: FeatureCardProps) {
+  const linkRow = Boolean(href && (centered || horizontal) && linkLabel);
+  const link = linkRow && href && (
+    <Link to={href} className={`${styles.link} ${styles.linkRow}`}>
+      {linkLabel}
+      <Icon name="arrowRight" size={14} className={styles.arrow} />
+    </Link>
+  );
 
   return (
     <li
-      className={`${styles.card} ${tone === 'dark' ? styles.dark : ''} ${stacked ? styles.stacked : ''} ${centered ? styles.centered : ''} ${href ? styles.linked : ''}`}
+      className={`${styles.card} ${tone === 'dark' ? styles.dark : ''} ${stacked ? styles.stacked : ''} ${centered ? styles.centered : ''} ${horizontal ? styles.horizontal : ''} ${href ? styles.linked : ''}`}
     >
       <span className={styles.iconWrap}>
-        <Icon name={icon} size={22} />
+        <Icon name={icon} size={horizontal ? 26 : 22} />
       </span>
       <div className={styles.body}>
         <h3 className={styles.title}>
@@ -46,13 +57,10 @@ export function FeatureCard({ icon, title, description, tone = 'light', stacked 
           )}
         </h3>
         <p className={styles.description}>{description}</p>
+        {/* Beside the plate, the link runs under the text; centred, it is pinned to the foot. */}
+        {horizontal && link}
       </div>
-      {linkRow && href && (
-        <Link to={href} className={`${styles.link} ${styles.linkRow}`}>
-          {linkLabel}
-          <Icon name="arrowRight" size={14} className={styles.arrow} />
-        </Link>
-      )}
+      {!horizontal && link}
     </li>
   );
 }
